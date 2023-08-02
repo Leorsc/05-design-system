@@ -26,6 +26,15 @@ jobs:
         run: npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
-
+          
+   - name: Publish Storybook to GH Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          target_branch: gh-pages
+          build_dir: storybook-static
+          jekyll: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 # Lembrar de modificar a permissão do repositorio
 # Settings > Actions > General > Workflow permissions > Read and write permissions
