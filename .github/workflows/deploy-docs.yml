@@ -4,9 +4,6 @@ on:
   push:
     branches: [master]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
   
 jobs:
   build-and-deploy:
@@ -18,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 14
       
       - run: npm ci
       
@@ -26,6 +23,7 @@ jobs:
       
       - name: Deploy storybook
         working-directory: ./packages/docs
-        run: |
-          git remote set-url origin "https://github.com/Leorsc/05-design-system.git"
-          git push --force --quiet ${{ secrets.GH_TOKEN }} master:gh-pages
+        run: npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
+        env:
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
+
