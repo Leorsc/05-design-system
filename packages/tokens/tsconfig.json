@@ -1,0 +1,6 @@
+{
+  "extends": "@leorsc-ignite-ui/ts-config/react.json",
+  "include": [
+    "src"
+  ]
+}
