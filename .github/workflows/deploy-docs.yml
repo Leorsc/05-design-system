@@ -27,3 +27,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
 
+# Lembrar de modificar a permissão do repositorio
+# Settings > Actions > General > Workflow permissions > Read and write permissions
